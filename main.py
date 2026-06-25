@@ -16,22 +16,25 @@ with Connection.open_serial_port("COM3") as connection:
     axis_y = device_y.get_axis(1)
     axis_z = device_z.get_axis(1)
 
-    if not axis_x.is_homed():
-        axis_x.home()
+    # Home all axes, y axis first
     if not axis_y.is_homed():
         axis_y.home()
     if not axis_z.is_homed():
         axis_z.home()
+    if not axis_x.is_homed():
+        axis_x.home()
+
+    # Move to the start position
+    axis_x.move_absolute(0, Units.LENGTH_MILLIMETRES)
+    axis_y.move_absolute(0, Units.LENGTH_MILLIMETRES)
+    axis_z.move_absolute(0, Units.LENGTH_MILLIMETRES)
+
+    # Move to the end position
+    axis_x.move_absolute(50, Units.LENGTH_MILLIMETRES)
+    axis_y.move_absolute(50, Units.LENGTH_MILLIMETRES)
+    axis_z.move_absolute(25, Units.LENGTH_MILLIMETRES)
 
     # Move to middle of the travel range
     axis_x.move_absolute(25, Units.LENGTH_MILLIMETRES)
     axis_y.move_absolute(25, Units.LENGTH_MILLIMETRES)
     axis_z.move_absolute(12.5, Units.LENGTH_MILLIMETRES)
-
-    # Move by an additional 5mm
-    axis_x.move_relative(5, Units.LENGTH_MILLIMETRES)
-    axis_y.move_relative(5, Units.LENGTH_MILLIMETRES)
-    axis_z.move_relative(5, Units.LENGTH_MILLIMETRES)
-
-    # Sine wave motion on the X axis
-    axis_x.move_sin(10, Units.LENGTH_MILLIMETRES, 10, Units.TIME_SECONDS, count=2)
