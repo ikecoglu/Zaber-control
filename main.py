@@ -2,7 +2,7 @@ from zaber_motion import Units
 from zaber_motion.ascii import Connection
 
 # Set the correct serial port for your system.
-with Connection.open_serial_port("/dev/tty.usbserial-A10PQWLG") as connection:
+with Connection.open_serial_port("COM3") as connection:
     connection.enable_alerts()
 
     device_list = connection.detect_devices()
@@ -25,13 +25,13 @@ with Connection.open_serial_port("/dev/tty.usbserial-A10PQWLG") as connection:
 
     # Move to middle of the travel range
     axis_x.move_absolute(25, Units.LENGTH_MILLIMETRES)
-    # axis_y.move_absolute(25, Units.LENGTH_MILLIMETRES)
-    # axis_z.move_absolute(12.5, Units.LENGTH_MILLIMETRES)
+    axis_y.move_absolute(25, Units.LENGTH_MILLIMETRES)
+    axis_z.move_absolute(12.5, Units.LENGTH_MILLIMETRES)
 
     # Move by an additional 5mm
-    # axis_x.move_relative(5, Units.LENGTH_MILLIMETRES)
-    # axis_y.move_relative(5, Units.LENGTH_MILLIMETRES)
-    # axis_z.move_relative(5, Units.LENGTH_MILLIMETRES)
+    axis_x.move_relative(5, Units.LENGTH_MILLIMETRES)
+    axis_y.move_relative(5, Units.LENGTH_MILLIMETRES)
+    axis_z.move_relative(5, Units.LENGTH_MILLIMETRES)
 
     # Sine wave motion on the X axis
     axis_x.move_sin(10, Units.LENGTH_MILLIMETRES, 10, Units.TIME_SECONDS, count=2)
