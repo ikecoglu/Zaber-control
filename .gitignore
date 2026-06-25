@@ -182,3 +182,5 @@ cython_debug/
 .DS_Store
 /.vscode
 /examples
+CLAUDE.md
+AGENTS.md
